@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProdutoEntity } from "./produto.entity";
 import { Repository } from "typeorm";
-import { ListaProdutoDTO } from "./dto/ListaProdutoDTO";
 import { AtualizaProdutoDTO } from "./dto/AtualizaProdutoDTO";
 import { CriaProdutoDTO } from "./dto/CriaProdutoDTO";
 
@@ -17,7 +16,6 @@ export class ProdutoService {
         const produtoEntity = new ProdutoEntity();
 
         produtoEntity.nome = dadosProduto.nome;
-        produtoEntity.usuarioId = dadosProduto.usuarioId;
         produtoEntity.valor = dadosProduto.valor;
         produtoEntity.quantidadeDisponivel = dadosProduto.quantidadeDisponivel;
         produtoEntity.descricao = dadosProduto.descricao;

@@ -4,9 +4,6 @@ import { CaracteristicaProdutoDTO } from "./CaracteristicaProdutoDTO";
 import { ImagemProdutoDTO } from "./ImagemProdutoDTO";
 
 export class CriaProdutoDTO {
-    @IsUUID(undefined, { message: 'ID de usuário inválido' })
-    usuarioId: string;
-
     @IsNotEmpty({
         message: "O nome tem que ser uma string de caracteres e não pode ser vazio"
     })

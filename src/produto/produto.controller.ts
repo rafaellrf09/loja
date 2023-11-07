@@ -1,8 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ProdutoRepository } from './produto.repository';
 import { CriaProdutoDTO } from './dto/CriaProdutoDTO';
-import { ProdutoEntity } from './produto.entity';
-import { randomUUID } from 'crypto';
 import { AtualizaProdutoDTO } from './dto/AtualizaProdutoDTO';
 import { ProdutoService } from './produto.service';
 
