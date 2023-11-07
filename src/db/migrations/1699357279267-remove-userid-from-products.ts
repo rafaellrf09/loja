@@ -8,7 +8,7 @@ export class removeUseridFromProducts1699357279267 implements MigrationInterface
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "produtos" ADD "usuario_id" character varying(100) NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "produtos" ADD "usuario_id" character varying(100)`);
     }
 
 }
