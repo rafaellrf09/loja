@@ -12,24 +12,19 @@ export class ProdutoController {
     constructor(
         private readonly produtoRepository: ProdutoRepository,
         private readonly produtoService: ProdutoService
-        ) { }
+    ) { }
+
     @Post()
-    async criaProduto(@Body() dadosProduto: CriaProdutoDTO) {
-        const produto = new ProdutoEntity();
+    async criaNovo(@Body() dadosProduto: CriaProdutoDTO) {
+        const produtoCadastrado = await this.produtoService.criaProduto(
+            dadosProduto,
+        );
 
-        produto.id = randomUUID();
-        produto.nome = dadosProduto.nome;
-        produto.usuarioId = dadosProduto.usuarioId;
-        produto.valor = dadosProduto.valor;
-        produto.quantidade = dadosProduto.quantidadeDisponivel;
-        produto.descricao = dadosProduto.descricao;
-        produto.categoria = dadosProduto.categoria;
-        produto.caracteristicas = dadosProduto.caracteristicas;
-        produto.imagens = dadosProduto.imagens;
-
-        const produtoCadastrado = this.produtoService.criaProduto(produto);
-        return produtoCadastrado;
-    };
+        return {
+            mensagem: 'Produto criado com sucesso.',
+            produto: produtoCadastrado,
+        };
+    }
 
     @Get()
     async listaTodos() {
