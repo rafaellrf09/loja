@@ -2,7 +2,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import { Response, Request } from "express";
 
 @Catch()
-export class FiltroDeExcecaoHttp implements ExceptionFilter {
+export class FiltroDeExcecaoGlobal implements ExceptionFilter {
     catch(excecao: unknown, host: ArgumentsHost) {
         console.log(excecao);
 
