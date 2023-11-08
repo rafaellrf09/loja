@@ -8,7 +8,6 @@ import { ProdutoService } from './produto.service';
 @Controller('/produtos')
 export class ProdutoController {
     constructor(
-        private readonly produtoRepository: ProdutoRepository,
         private readonly produtoService: ProdutoService
     ) { }
 
@@ -26,7 +25,7 @@ export class ProdutoController {
 
     @Get()
     async listaTodos() {
-        return this.produtoRepository.listar();
+        return this.produtoService.listaProdutos();
     }
 
     @Put('/:id')
@@ -34,7 +33,7 @@ export class ProdutoController {
         @Param('id') id: string,
         @Body() dadosProduto: AtualizaProdutoDTO,
     ) {
-        const produtoAlterado = await this.produtoRepository.atualiza(
+        const produtoAlterado = await this.produtoService.atualizaProduto(
             id,
             dadosProduto,
         );
@@ -47,7 +46,7 @@ export class ProdutoController {
 
     @Delete('/:id')
     async remove(@Param('id') id: string) {
-        const produtoRemovido = await this.produtoRepository.remove(id);
+        const produtoRemovido = await this.produtoService.deletaProduto(id);
 
         return {
             mensagem: 'produto removido com sucesso',

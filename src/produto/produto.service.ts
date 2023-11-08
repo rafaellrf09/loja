@@ -28,11 +28,8 @@ export class ProdutoService {
 
     async listaProdutos() {
         const produtosSalvos = await this.produtoRepository.find();
-        // const produtosLista = produtosSalvos.map(produto => {
-        //     return new ListaProdutoDTO(produto.id, produto.nome)
-        // })
 
-        // return produtosLista;
+        return produtosSalvos;
     }
 
     async atualizaProduto(id: string, novosDados: AtualizaProdutoDTO) {
