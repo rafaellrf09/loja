@@ -10,15 +10,19 @@ import { FiltroDeExcecaoGlobal } from './recursos/filtros/filtro-de-excecao-glob
 import { ProdutoModule } from './modulos/produto/produto.module';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { PedidoModule } from './modulos/pedido/pedido.module';
+import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    CacheModule.register({
+    CacheModule.registerAsync({
+      useFactory: async () => ({
+        store: await redisStore({ ttl: 10000 }),
+      }),
       isGlobal: true,
-      ttl: 10000
+
     }),
     TypeOrmModule.forRootAsync({
       useClass: ProstgresConfigService,
