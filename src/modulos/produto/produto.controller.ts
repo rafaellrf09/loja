@@ -1,14 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { CriaProdutoDTO } from './dto/CriaProdutoDTO';
 import { AtualizaProdutoDTO } from './dto/AtualizaProdutoDTO';
 import { ProdutoService } from './produto.service';
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheInterceptor, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { ProdutoEntity } from './produto.entity';
 
 
 @Controller('/produtos')
 export class ProdutoController {
     constructor(
-        private readonly produtoService: ProdutoService
+        private readonly produtoService: ProdutoService,
+        @Inject(CACHE_MANAGER) private gerenciadorDeCache: Cache,
     ) { }
 
     @Post()
@@ -24,11 +27,22 @@ export class ProdutoController {
     }
 
     @Get("/:id")
-    @UseInterceptors(CacheInterceptor)
     async listaUm(@Param("id") id: string) {
-        const produtoSalvo = await this.produtoService.listaUmProduto(id);
+        let produto = await this.gerenciadorDeCache.get<ProdutoEntity>(
+            `produto-${id}`,
+        );
 
-        return produtoSalvo;
+        if (!produto) {
+            console.log('Obtendo produto do cache!');
+            produto = await this.produtoService.listaUmProduto(id) as ProdutoEntity;
+
+            await this.gerenciadorDeCache.set(`produto-${id}`, produto);
+        }
+
+        return {
+            mensagem: 'Produto obtido com sucesso.',
+            produto,
+        };
     }
 
     @Get()
