@@ -26,11 +26,17 @@ export class ProdutoService {
         return produtosSalvos;
     }
 
+    async listaUmProduto(id: string) {
+        const produtosSalvos = await this.produtoRepository.findOneBy({ id });
+
+        return produtosSalvos;
+    }
+
     async atualizaProduto(id: string, novosDados: AtualizaProdutoDTO) {
         const entityName = await this.produtoRepository.findOneBy({ id });
 
         if (entityName === null) throw new NotFoundException('O Produto não foi encontrado');
-        
+
         Object.assign(entityName, novosDados as ProdutoEntity);
 
         await this.produtoRepository.save(entityName);

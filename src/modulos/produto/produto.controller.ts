@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ProdutoRepository } from './produto.repository';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { CriaProdutoDTO } from './dto/CriaProdutoDTO';
 import { AtualizaProdutoDTO } from './dto/AtualizaProdutoDTO';
 import { ProdutoService } from './produto.service';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 
 @Controller('/produtos')
@@ -21,6 +21,14 @@ export class ProdutoController {
             mensagem: 'Produto criado com sucesso.',
             produto: produtoCadastrado,
         };
+    }
+
+    @Get("/:id")
+    @UseInterceptors(CacheInterceptor)
+    async listaUm(@Param("id") id: string) {
+        const produtoSalvo = await this.produtoService.listaUmProduto(id);
+
+        return produtoSalvo;
     }
 
     @Get()
