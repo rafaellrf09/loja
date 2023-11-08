@@ -89,7 +89,7 @@ export class PedidoService {
 
     if (!pedido) throw new NotFoundException('O Produto não foi encontrado');
 
-    Object.assign(pedido, updatePedidoDto);
+    Object.assign(pedido, updatePedidoDto as PedidoEntity);
 
     await this.pedidoRepository.save(pedido);
   }
