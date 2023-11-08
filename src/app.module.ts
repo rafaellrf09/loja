@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
+
 import { UsuarioModule } from './usuario/usuario.module';
 import { ProdutoModule } from './produto/produto.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProstgresConfigService } from './config/postgres.config.service';
-import { ConfigModule } from '@nestjs/config';
 import { PedidoModule } from './pedido/pedido.module';
-import { APP_FILTER } from '@nestjs/core';
-import { FiltroDeExcecaoGlobal } from './filtros/filtro-de-excecao-global';
+
+import { ProstgresConfigService } from './config/postgres.config.service';
+import { FiltroDeExcecaoGlobal } from './recursos/filtros/filtro-de-excecao-global';
 
 @Module({
   imports: [
