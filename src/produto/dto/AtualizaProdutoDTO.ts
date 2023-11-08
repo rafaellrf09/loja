@@ -1,43 +1,4 @@
-import { Type } from "class-transformer";
-import { IsArray, IsNotEmpty, ValidateNested, IsNumber, IsPositive, Min, IsEmpty, MaxLength, ArrayMinSize, IsUUID } from "class-validator";
-import { CaracteristicaProdutoDTO } from "./CaracteristicaProdutoDTO";
-import { ImagemProdutoDTO } from "./ImagemProdutoDTO";
+import { PartialType } from "@nestjs/mapped-types";
+import { CriaProdutoDTO } from "./CriaProdutoDTO";
 
-export class AtualizaProdutoDTO {
-    @IsUUID(undefined, { message: 'ID de usuário inválido' })
-    id: string;
-
-    @IsNotEmpty({
-        message: "O nome tem que ser uma string de caracteres e não pode ser vazio"
-    })
-    nome: string;
-
-    @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
-    @IsPositive()
-    valor: number;
-
-    @Min(0)
-    quantidadeDisponivel: number;
-
-    @IsNotEmpty({
-        message: "A descricao do produto não pode ser vazia"
-    })
-    @MaxLength(100)
-    descricao: string;
-
-    @ValidateNested()
-    @IsArray()
-    @Type(() => CaracteristicaProdutoDTO)
-    caracteristicas: CaracteristicaProdutoDTO[];
-
-    @ValidateNested()
-    @IsArray()
-    @ArrayMinSize(1)
-    @Type(() => ImagemProdutoDTO)
-    imagens: ImagemProdutoDTO[];
-
-    @IsNotEmpty({
-        message: "A categoria do produto não pode ser vazia"
-    })
-    categoria: string;
-}
+export class AtualizaProdutoDTO extends PartialType(CriaProdutoDTO) {}

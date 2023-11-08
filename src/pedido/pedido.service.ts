@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PedidoEntity } from './pedido.entity';
 import { In, Repository } from 'typeorm';
@@ -84,7 +84,7 @@ export class PedidoService {
     return this.pedidoRepository.findBy({ id });
   }
 
-  async update(id: string, updatePedidoDto: UpdatePedidoDto) {
+  async update(id: string, updatePedidoDto: AtualizaPedidoDTO) {
     const pedido = await this.pedidoRepository.findOneBy({ id });
 
     if (!pedido) throw new NotFoundException('O Produto não foi encontrado');

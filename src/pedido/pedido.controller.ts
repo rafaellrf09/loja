@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDTO } from './dto/CriaPedido.dto';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
 
 @Controller('pedidos')
 export class PedidoController {
@@ -28,7 +28,7 @@ export class PedidoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
+  update(@Param('id') id: string, @Body() updatePedidoDto: AtualizaPedidoDTO) {
     return this.pedidoService.update(id, updatePedidoDto);
   }
 
