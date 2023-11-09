@@ -11,6 +11,7 @@ import { ProdutoModule } from './modulos/produto/produto.module';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { PedidoModule } from './modulos/pedido/pedido.module';
 import { redisStore } from 'cache-manager-redis-yet';
+import { AuthModule } from './modulos/auth/auth.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { redisStore } from 'cache-manager-redis-yet';
     }),
     ProdutoModule,
     UsuarioModule,
-    PedidoModule
+    PedidoModule,
+    AuthModule
   ],
   providers: [
     {
