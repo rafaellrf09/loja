@@ -14,12 +14,8 @@ export class PedidoEntity {
     @Column({ name: "status", enum: StatusPedido, nullable: false })
     status: StatusPedido;
 
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt: string;
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: string;
-    @DeleteDateColumn({ name: 'deleted_at' })
-    deletedAt: string;
+    @Column({ name: "comentario", length: 250, nullable: true })
+    comentario: string;
 
     @ManyToOne(() => UsuarioEntity, (usuario) => usuario.pedidos)
     usuario: UsuarioEntity;
@@ -28,4 +24,11 @@ export class PedidoEntity {
         cascade: true,
     })
     itensPedido: ItemPedidoEntity[];
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: string;
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: string;
+    @DeleteDateColumn({ name: 'deleted_at' })
+    deletedAt: string;
 }
