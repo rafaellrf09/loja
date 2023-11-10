@@ -26,6 +26,12 @@ export class PedidoService {
     return usuario;
   }
 
+  private async buscaPedido(id: string) {
+    const pedido = await this.pedidoRepository.findOneBy({ id });
+    if (!pedido) throw new NotFoundException(`Pedido ${id} não encontrado`);
+    return pedido;
+  }
+
   private trataDadosDoPedido(dadosDoPedido: CriaPedidoDTO, produtosRelacionados: ProdutoEntity[]) {
     dadosDoPedido.itensPedido.forEach(itemPedido => {
       const produtoRelacionado = produtosRelacionados.find(produto => produto.id === itemPedido.produtoId);
@@ -109,5 +115,11 @@ export class PedidoService {
         usuario: true,
       },
     });
+  }
+
+  async changeStatus(id: string, status: StatusPedido) {
+    const pedido = await this.buscaPedido(id);
+    pedido.status = status;
+    return await this.pedidoRepository.save(pedido);
   }
 }

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDTO } from './dto/CriaPedido.dto';
 import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
 import { AuthGuard, RequisicaoComUsuario } from '../auth/auth.guard';
+import { StatusPedido } from './enum/status-pedido.enum';
 
 @UseGuards(AuthGuard)
 @Controller('pedidos')
@@ -28,6 +29,14 @@ export class PedidoController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pedidoService.findOne(id);
+  }
+
+  @Patch(":id")
+  changeStatus(
+    @Param('id') id: string,
+    @Query("status") status: StatusPedido
+  ) {
+    return this.pedidoService.changeStatus(id, status);
   }
 
   // @Patch(':id')
