@@ -84,15 +84,15 @@ export class PedidoService {
     return this.pedidoRepository.findBy({ id });
   }
 
-  async update(id: string, updatePedidoDto: AtualizaPedidoDTO) {
-    const pedido = await this.pedidoRepository.findOneBy({ id });
+  // async update(id: string, updatePedidoDto: AtualizaPedidoDTO , usuarioId: string) {
+  //   const pedido = await this.pedidoRepository.findOneBy({ id });
 
-    if (!pedido) throw new NotFoundException('O Produto não foi encontrado');
+  //   if (!pedido) throw new NotFoundException('O Produto não foi encontrado');
 
-    Object.assign(pedido, updatePedidoDto as PedidoEntity);
+  //   Object.assign(pedido, updatePedidoDto as PedidoEntity);
 
-    await this.pedidoRepository.save(pedido);
-  }
+  //   await this.pedidoRepository.save(pedido);
+  // }
 
   async remove(id: string) {
     return this.pedidoRepository.delete(id);
