@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-esm -d src/db/data-source-cli.ts",
     "typeorm:run": "typeorm-ts-node-esm -d src/db/data-source-cli.ts migration:run",
-    "typeorm:reverse": "typeorm-ts-node-esm -d src/db/data-source-cli.ts migration:reverse",
+    "typeorm:revert": "typeorm-ts-node-esm -d src/db/data-source-cli.ts migration:revert",
     "typeorm:create": "typeorm-ts-node-esm -d src/db/data-source-cli.ts migration:generate"
   },
   "dependencies": {
